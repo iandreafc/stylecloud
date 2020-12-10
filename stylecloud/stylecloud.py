@@ -1,14 +1,15 @@
-from icon_font_to_png.icon_font import IconFont
-from wordcloud import WordCloud, STOPWORDS, ImageColorGenerator
 import csv
 import os
-from PIL import Image
-from matplotlib.colors import makeMappingArray, to_rgb
-import numpy as np
-import fire
 from shutil import rmtree
-from pkg_resources import resource_filename
 from typing import List, Union
+
+import fire
+import numpy as np
+from icon_font_to_png.icon_font import IconFont
+from matplotlib.colors import makeMappingArray, to_rgb
+from PIL import Image
+from pkg_resources import resource_filename
+from wordcloud import STOPWORDS, ImageColorGenerator, WordCloud
 
 STATIC_PATH = resource_filename(__name__, "static")
 
@@ -83,17 +84,41 @@ def gen_fa_mask(
 
 def gen_palette(palette: str):
     """Generates the corresponding palette function from `palettable`."""
-    palette_split = palette.split(".")
-    palette_name = palette_split[-1]
 
-    # https://stackoverflow.com/a/6677505
-    palette_func = getattr(
-        __import__(
-            "palettable.{}".format(".".join(palette_split[:-1])),
-            fromlist=[palette_name],
-        ),
-        palette_name,
-    )
+    try:
+        if palette == "Bold_5":
+            from palettable.cartocolors.qualitative import \
+                Bold_5 as palette_func
+        elif palette == "Bold_3":
+            from palettable.cartocolors.qualitative import \
+                Bold_3 as palette_func
+        elif palette == "Pastel_3":
+            from palettable.cartocolors.qualitative import \
+                Pastel_3 as palette_func
+        elif palette == "Pastel_10":
+            from palettable.cartocolors.qualitative import \
+                Pastel_10 as palette_func
+        elif palette == "Prism_3":
+            from palettable.cartocolors.qualitative import \
+                Prism_3 as palette_func
+        elif palette == "Prism_6":
+            from palettable.cartocolors.qualitative import \
+                Prism_6 as palette_func
+        elif palette == "Safe_3":
+            from palettable.cartocolors.qualitative import \
+                Safe_3 as palette_func
+        elif palette == "Safe_5":
+            from palettable.cartocolors.qualitative import \
+                Safe_5 as palette_func
+        elif palette == "Vivid_5":
+            from palettable.cartocolors.qualitative import \
+                Vivid_5 as palette_func
+        else:
+            from palettable.cartocolors.qualitative import \
+                Bold_5 as palette_func
+    except:
+        print("ERROR generating the color palette.")
+
     return palette_func
 
 
