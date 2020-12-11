@@ -83,8 +83,6 @@ def gen_fa_mask(
 
 
 def gen_palette(palette: str):
-    """Generates the corresponding palette function from `palettable`."""
-
     try:
         if palette == "Bold_5":
             from palettable.cartocolors.qualitative import \
@@ -113,6 +111,20 @@ def gen_palette(palette: str):
         elif palette == "Vivid_5":
             from palettable.cartocolors.qualitative import \
                 Vivid_5 as palette_func
+        elif palette == "Gray_5":
+            from palettable.tableau import Gray_5 as palette_func
+        elif palette == "Paired_6":
+            from palettable.colorbrewer.qualitative import \
+                Paired_6 as palette_func
+        elif palette == "Pastel2_3":
+            from palettable.colorbrewer.qualitative import \
+                Pastel2_3 as palette_func
+        elif palette == "Set2_5":
+            from palettable.colorbrewer.qualitative import \
+                Set2_5 as palette_func
+        elif palette == "Set1_4":
+            from palettable.colorbrewer.qualitative import \
+                Set1_4 as palette_func
         else:
             from palettable.cartocolors.qualitative import \
                 Bold_5 as palette_func
